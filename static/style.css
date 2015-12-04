@@ -1,0 +1,36 @@
+.chart-legend {
+    list-style-type:none;
+    margin: 0px;
+}
+
+.mdl-card {
+    min-height: 0px;
+}
+
+.chart svg {
+/*     background-color: aliceblue; */
+}
+
+.mdl-card__subtitle-text ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#show-dates-button {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.date-shortcut-button {
+    width: 50%;
+}
+
+.date-field {
+    width: 49%;
+}
+
+.filter-radio-buttons {
+    display: flex;
+    flex-direction: column;
+}

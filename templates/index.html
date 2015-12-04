@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Harcoded title</title>
+        <meta name="description" content="Harcoded description">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--         <link rel="stylesheet" href="http://fonts. googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='material.icons.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='material.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='nv.d3.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        
+        <script src="{{ url_for('static', filename='material.js') }}"></script>
+        <script src="{{ url_for('static', filename='d3.js') }}"></script>
+        <script src="{{ url_for('static', filename='nv.d3.js') }}"></script>
+        <script src="{{ url_for('static', filename='dashydeebee.js') }}"></script>
+    </head>
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+            <div class="mdl-layout__drawer">
+              <span class="mdl-layout-title">MDM Nepal</span>
+              <nav class="mdl-navigation">
+                
+                {% for page in pages %}
+                {% if loop.first %}
+                <div>
+                {% endif %}
+                    <a class="mdl-navigation__link" href="{{ page.url }}">{{ page.label }}</a>
+                {% if loop.last %}
+                </div>
+                {% endif %}
+                {% endfor %}
+                
+                <hr />
+                
+                <div>
+                    <div class="mdl-textfield mdl-js-textfield date-field">
+                        <input id="date_from" class="mdl-textfield__input" title="From date" pattern="\d{4}-\d{2}-\d{2}" type="text" id="date_from" value="{{ dates_urls.date_from_label }}">
+                        <label class="mdl-textfield__label" for="date_interval" >From (ie: {{ dates_urls.date_from_label }})</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield date-field">
+                        <input id="date_to" class="mdl-textfield__input" title="To date" type="text" id="date_to" value="{{ dates_urls.date_to_label }}">
+                        <label class="mdl-textfield__label" for="date_interval">To (ie: {{ dates_urls.date_to_label }})</label>
+                    </div>
+                </div>
+                <button id="show-dates-button" onclick="goToFromTextFields()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--coloredt">Show these dates</button>
+                
+                {% for shortcuts in dates_urls.shortcuts%}
+                {% for shortcut in shortcuts %}
+                {% if loop.first %}
+                <hr />
+                <div>
+                {% endif %}
+                    <a class="mdl-navigation__link" href="{{ shortcut.url }}">{{ shortcut.label }}</a>
+                {% if loop.last %}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+                
+                {% for filter in filters %}
+                <div id="{{ filter.id }}" class="filter-radio-buttons">
+                  {% for choice in filter.choices %}
+                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="{{ choice.id }}">
+                      <input type="radio" id="{{ choice.id }}" class="mdl-radio__button" name="{{ filter.name }}" value="{{ choice.value }}" {% if choice.checked %}checked{% endif %}>
+                      <span class="mdl-radio__label">{{ choice.text }}</span>
+                  </label>
+                  {% endfor %}
+                </div>
+                {% endfor %}
+              </nav>
+
+
+            </div>
+            <main class="mdl-layout__content">
+                <div id="charts" class="mdl-grid">
+                    {% for charts in data %}
+                        <div class="mdl-cell mdl-cell--12-col mdl-shadow--2dp mdl-grid mdl-grid--no-spacing chart">
+                            {% for chart in charts %}
+                                <div class="mdl-cell mdl-cell--2-col mdl-card">
+                                    <div class="mdl-card__title">
+                                        <h1>
+                                            <div class="mdl-card__title-text">{{ chart.title }}</div>
+                                            <div class="mdl-card__subtitle-text">{{ chart.subtitle | safe }}</div>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--10-col">
+                                    <svg id="{{ chart.id }}" ></svg>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </main>
+        </div>
+
+        <script>
+            var blocks = {{ data | safe }}
+            populateCharts(blocks);
+            
+            {% for filter in filters %}
+            setupFilter(blocks, '{{ filter.id }}');
+            {% endfor %}
+            
+//             initDateFilters();
+        </script>
+    </body>
+</html>
