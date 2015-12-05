@@ -22,6 +22,34 @@ $ source dashydeebee/bin/activate
 ```
 Point your browser to [http://localhost:5000](http://localhost:5000).
 
+## Install on an LXC
+
+## Create a debian container
+```
+$ lxc-create --name dashydeebee --template download -- --dist debian --release jessie --arch amd64
+```
+
+## Start the container
+```
+$ lxc-start --name dashydeebee
+```
+
+## Install python 3 and pip
+```
+$ lxc-attach --name dashydeebe -- apt-key update
+$ lxc-attach --name dashydeebe -- apt-get install --force-yes -y python3-pip
+```
+
+## Install dashydeebee and its dependencies
+```
+$ lxc-attach --name dashydeebe -- pip3 install https://github.com/charlesfleche/dashydeebee/zipball/master
+```
+
+## Run the server
+```
+$ lxc-attach --name dashydeebee -- python3 -m dashydeebee
+```
+
 ## Develop
 ### Get the code
 ```shell
