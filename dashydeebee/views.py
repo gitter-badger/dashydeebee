@@ -9,15 +9,15 @@ import time
 
 import dateutil.parser
 
-from flask import Flask, flash, redirect, render_template, \
+from flask import flash, redirect, render_template, \
      request, url_for, g, abort
+ 
+from dashydeebee import app
 
-DATABASE = 'dashydeebee.db'
-SCRIPTS_DIR = 'scripts'
-TEST_FORMS = os.path.join(SCRIPTS_DIR, 'forms.csv')
+DATABASE = '/tmp/dashydeebee.db'
+TEST_FORMS = os.path.join(os.path.dirname(__file__),'forms.csv')
 DEBUG = True
 
-app = Flask(__name__)
 app.config.from_object(__name__)
 
 def connect_db():
@@ -29,10 +29,9 @@ def connect_db():
 
 def init_db():
     import sys
-    sys.path.append(SCRIPTS_DIR)
     import io
     with io.StringIO() as f:
-        import forms2sqlite
+        from . import forms2sqlite
         forms2sqlite.csv2sqlite(TEST_FORMS, f)
         cur = sqlite3.connect(app.config['DATABASE'])
         cur.cursor()
@@ -476,5 +475,3 @@ pages = {'activity': data_activity,
          'locations': data_locations,
          'indicators': data_indicators}
 
-if __name__ == "__main__":
-    app.run()
