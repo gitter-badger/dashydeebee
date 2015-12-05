@@ -20,7 +20,7 @@ $ source dashydeebee/bin/activate
 ```shell
 (dashydeebee) $ python -m dashydeebee
 ```
-Point your browser to (http://localhost:5000).
+Point your browser to http://localhost:5000.
 
 ## Develop
 ### Get the code
@@ -46,4 +46,4 @@ $ source env/bin/activate
 (env) $ python -m dashydeebee
 ```
 
-Point your browser to (http://localhost:5000) and reload the page to test your changes.
+Point your browser to http://localhost:5000 and reload the page to test your changes.
