@@ -1,2 +1,3 @@
+include dashydeebee/forms.csv
 recursive-include dashydeebee/templates *
 recursive-include dashydeebee/static *
