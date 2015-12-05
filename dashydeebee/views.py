@@ -22,7 +22,7 @@ app.config.from_object(__name__)
 
 def connect_db():
     if not os.path.exists(app.config['DATABASE']):
-        init_db()  
+        init_db()
     rv = sqlite3.connect(app.config['DATABASE'])
     rv.row_factory = sqlite3.Row
     return rv
