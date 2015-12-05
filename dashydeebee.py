@@ -2,6 +2,7 @@ import calendar
 import collections
 import datetime
 import json
+import os.path
 import pprint
 import sqlite3
 import time
@@ -12,15 +13,31 @@ from flask import Flask, flash, redirect, render_template, \
      request, url_for, g, abort
 
 DATABASE = 'dashydeebee.db'
+SCRIPTS_DIR = 'scripts'
+TEST_FORMS = os.path.join(SCRIPTS_DIR, 'forms.csv')
 DEBUG = True
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
 def connect_db():
+    if not os.path.exists(app.config['DATABASE']):
+        init_db()  
     rv = sqlite3.connect(app.config['DATABASE'])
     rv.row_factory = sqlite3.Row
     return rv
+
+def init_db():
+    import sys
+    sys.path.append(SCRIPTS_DIR)
+    import io
+    with io.StringIO() as f:
+        import forms2sqlite
+        forms2sqlite.csv2sqlite(TEST_FORMS, f)
+        cur = sqlite3.connect(app.config['DATABASE'])
+        cur.cursor()
+        cur.executescript(f.getvalue())
+        cur.close()
 
 @app.before_request
 def before_request():
@@ -105,8 +122,6 @@ def page_view(page, date_from, date_to):
 
 def pages_urls(**kwargs):
     ret = []
-    
-    app.logger.debug(kwargs)
     
     kw = kwargs.copy()
     if 'location' in kw:
