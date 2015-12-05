@@ -41,7 +41,12 @@ $ source env/bin/activate
 (env) $ python setup.py develop
 ```
 
-### Run
+### Run the tests
+```
+(env) $ python -m unittest discover
+```
+
+### Run the application
 ```
 (env) $ python -m dashydeebee
 ```
