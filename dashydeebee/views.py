@@ -68,6 +68,13 @@ def post_process_data(date_from, date_to, d):
             values.append({'x': toepoch_in_milliseconds(x),
                            'y': defaults[x]})
 
+@app.route('/')
+def index():
+    return redirect(url_for('page_view',
+                            page = 'activity',
+                            date_from = '2015-07-01',
+                            date_to = '2015-07-31'))
+
 @app.route('/indicators/<date_from>/<date_to>/<location>')
 def indicators_view(date_from, date_to, location):
     page = 'indicators'
