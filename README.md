@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/charlesfleche/dashydeebee.svg?branch=master)](https://travis-ci.org/charlesfleche/dashydeebee)
+
 # dashydeebee
 A python 3 dashboard for ODK. For the moment nothing else than a quickly (badly…) hacked experimental project.
 
