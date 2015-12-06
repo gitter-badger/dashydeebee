@@ -66,7 +66,7 @@ $ source env/bin/activate
 
 ### Install dependencies
 ```
-(env) $ python setup.py develop
+(env) $ pip install -r requirements.txt
 ```
 
 ### Run the tests
