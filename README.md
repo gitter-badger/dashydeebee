@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/charlesfleche/dashydeebee.svg?branch=master)](https://travis-ci.org/charlesfleche/dashydeebee)
 
 # dashydeebee
+
+[![Join the chat at https://gitter.im/charlesfleche/dashydeebee](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/charlesfleche/dashydeebee?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A python 3 dashboard for ODK. For the moment nothing else than a quickly (badly…) hacked experimental project.
 
 ## Install and run
